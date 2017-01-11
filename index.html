@@ -6,22 +6,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>ly</title>
     <link href="https://gw.alicdn.com/tps/i2/TB1nmqyFFXXXXcQbFXXE5jB3XXX-114-114.png" rel="Shortcut Icon" type="image/x-icon">
-	<script>
-			//获取像素比
-			var pixelRatio = 1 / window.devicePixelRatio;
-			//通过js动态设置视口(viewport)
-			document.write('<meta name="viewport" content="width=device-width,initial-scale='+pixelRatio+',minimum-scale='+pixelRatio+',maximum-scale='+pixelRatio+'" />');
-
-
-    var html = document.documentElement;
-
-    function onWindowResize() {
-        html.style.fontSize = html.getBoundingClientRect().width / 20 + 'px';
-    }
-    window.addEventListener('resize', onWindowResize);
-    onWindowResize();
-
-		</script>
+	<script src="js/config.js"></script>
     <style>
 		*{ margin:0; padding:0;}
 		html,body{width:100%; height:100%;overflow-x:hidden; }
@@ -32,7 +17,7 @@
 	
     <script>
         window.onload=function(){
-			alert(0);
+			alert(1);
             
         };
     </script>
