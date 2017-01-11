@@ -6,7 +6,7 @@ function config(){
     //设置字体大小
     var setHtmlSize=function (){
         var oHtml = document.getElementsByTagName('html')[0];
-        oHtml.style.fontSize =oHtml.getBoundingClientRect().width / 320 +"px";
+        oHtml.style.fontSize =20*oHtml.getBoundingClientRect().width / 320 +"px";
     };
     setHtmlSize();
     window.addEventListener("resize", setHtmlSize, false);
