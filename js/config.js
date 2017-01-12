@@ -8,8 +8,8 @@
         var oHtml = doc.getElementsByTagName('html')[0];
         oHtml.style.fontSize =20*oHtml.getBoundingClientRect().width / 320 +"px";
     };
-    var resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
-    if (!doc.addEventListener) return;
+    var resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize';
+    ( !doc.addEventListener ) && (return);
     win.addEventListener(resizeEvt, setHtmlSize, false);
     doc.addEventListener('DOMContentLoaded',setHtmlSize, false);
     //
