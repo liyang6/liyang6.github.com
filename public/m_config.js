@@ -6,7 +6,7 @@
     //设置字体大小
     var setHtmlSize=function (){
         var oHtml = doc.getElementsByTagName('html')[0];
-        oHtml.style.fontSize =20*oHtml.getBoundingClientRect().width / 375 +"px";
+        oHtml.style.fontSize =20*oHtml.getBoundingClientRect().width / 320 +"px";//默认640设计图，750设计图，只需要修改成375即可
     };
     var resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize';
     if( !doc.addEventListener) return;

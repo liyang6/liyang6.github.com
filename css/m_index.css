@@ -1,6 +1,21 @@
 /*定义变量名*/
+/*640设计图用这个*/
+/*750设计图用这个*/
 div {
-  width: 18.75rem;
-  height: 7.525rem;
+  /*设计图量出100px宽就写100，在除以定义好的变量*/
+  width: 2.5rem;
+  height: 8.025rem;
   background: red;
+  color: #fff;
+  font-size: 0.7rem;
+  float: left;
+}
+span {
+  /*设计图量出10px宽就写10，在除以定义好的变量*/
+  width: 0.25rem;
+  height: 8.025rem;
+  background: #000;
+  color: #fff;
+  font-size: 0.7rem;
+  float: left;
 }

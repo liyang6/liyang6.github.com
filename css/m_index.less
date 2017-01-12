@@ -1,9 +1,24 @@
 /*定义变量名*/
+/*640设计图用这个*/
 @rem64: 40rem;
+/*750设计图用这个*/
 @rem75: 40rem;
 
 div{
-	width:750/@rem75;
-	height:301/@rem75;
+	/*设计图量出100px宽就写100，在除以定义好的变量*/
+	width:100/@rem64;
+	height:321/@rem64;
 	background:red;
+	color:#fff;
+	font-size:28/@rem64;
+	float:left;
+}
+span{
+	/*设计图量出10px宽就写10，在除以定义好的变量*/
+	width:10/@rem64;
+	height:321/@rem64;
+	background:#000;
+	color:#fff;
+	font-size:28/@rem64;
+	float:left;
 }
