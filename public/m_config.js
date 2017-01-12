@@ -6,7 +6,7 @@
     //设置字体大小
     var setHtmlSize=function (){
         var oHtml = doc.getElementsByTagName('html')[0];
-        oHtml.style.fontSize =20*oHtml.getBoundingClientRect().width / 320 +"px";
+        oHtml.style.fontSize =20*oHtml.getBoundingClientRect().width / 375 +"px";
     };
     var resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize';
     if( !doc.addEventListener) return;
