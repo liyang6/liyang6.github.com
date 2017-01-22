@@ -47,8 +47,6 @@
     var fnReady=function (){
         var ScrollMore=function (obj){
                 this.scrollInit(obj);//初始化数据
-                console.log(this.onlyScroll);
-
 
                 if( !this.url || !this.scrollId ) return;
                 if( this.onlyScroll ){
@@ -83,7 +81,9 @@
         ScrollMore.prototype.scrollEven=function (){
             var that=this;
             var oRefresh=this.oRefresh,
-                oLoad=this.oLoad;
+                oLoad=this.oLoad,
+                isRefresh=false,
+                isLoad=false,;
             var myScroll;
             myScroll = new IScroll(this.scrollId, {
                     click:true,
@@ -101,8 +101,16 @@
            
 
               myScroll.on("scroll",function(){
-                console.log("move"+this.y);
-               
+                
+                if(this.y>5 ){
+                    
+                    if(this.y>20){
+                        console.log("30");
+                    }
+                } 
+                if (this.y < this.maxScrollY - 5){
+
+                }
             });
           /*  myScroll.on("scrollEnd",function(){
                 console.log("end"+this.y);
