@@ -510,7 +510,7 @@ IScroll.prototype = {
 		if ( timestamp - this.endTime > 300 && (absDistX < 10 && absDistY < 10) ) {
 			return;
 		}
- 
+
 		// If you are scrolling in one direction lock the other
 		if ( !this.directionLocked && !this.options.freeScroll ) {
 			if ( absDistX > absDistY + this.options.directionLockThreshold ) {
@@ -1650,8 +1650,7 @@ IScroll.prototype = {
 				this._key(e);
 				break;
 			case 'click':
-				//if ( this.enabled && !e._constructed ) {
-				if ( this.enabled && !e._constructed && !utils.preventDefaultException(e.target, this.options.preventDefaultException)) {
+				if ( this.enabled && !e._constructed ) {
 					e.preventDefault();
 					e.stopPropagation();
 				}
@@ -1665,7 +1664,7 @@ function createDefaultScrollbar (direction, interactive, type) {
 
 	if ( type === true ) {
 		scrollbar.style.cssText = 'position:absolute;z-index:9999';
-		indicator.style.cssText = '-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;position:absolute;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.9);border-radius:3px';
+		indicator.style.cssText = '-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;position:absolute;background:rgba(166,166,166,1);border:1px solid rgba(255,255,255,0.9);border-radius:3px';
 	}
 
 	indicator.className = 'iScrollIndicator';

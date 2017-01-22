@@ -61,7 +61,8 @@
         ScrollMore.prototype.scrollInit=function (obj){
             var opt={
                         url:"456",
-                        onlyScroll:false
+                        onlyScroll:false,
+                        pageCount:"0"
                 };
                 //数据合并
                 comonWork.extend(opt,obj);
@@ -70,6 +71,7 @@
                 this.addContId=opt.addContId,
                 this.onlyScroll=opt.onlyScroll,
                 this.refresh=opt.refresh,
+                this.pageCount=opt.pageCount;
                 this.oRefresh=null;
                 this.oLoad=null;
 
@@ -82,64 +84,30 @@
             var that=this;
             var oRefresh=this.oRefresh,
                 oLoad=this.oLoad;
-            var myScroll=null;
+            var myScroll;
             myScroll = new IScroll(this.scrollId, {
                     click:true,
                     tap: true ,
-                    preventDefault:false
+                    probeType: 2
+                    
             });
-            
-            myScroll.on("scrollCancel",function(){
-                /*if(!oRefresh.hasClass("loading") ){
-                    oRefresh.removeClass("down");
-                    oRefresh.prev().removeClass("imgError");  
-                };
-                if( !oLoad.hasClass("loading")){
-                    oLoad.removeClass("down");
-                    oLoad.removeClass("imgError");              
-                };*/
-
-                myScroll.refresh();
+             myScroll.on("scrollCancel",function(){
+                 console.log("scrollCancel");
             });
-            myScroll.on("beforeScrollStart",function(){
-                myScroll.refresh();
+              myScroll.on("beforeScrollStart",function(){
+               // myScroll.refresh();
+               console.log("beforeScrollStart");
             });
-            myScroll.on('scroll',function(){
+           
 
-                if(!oRefresh.hasClass("loading") && ! oLoad.hasClass("loading")){
-                   if(this.y>5){   //下拉刷新
-                       
-                       /*beforeMore.removeClass("down");
-                       beforeMoreimg.removeClass("imgok imgup imgLoading").addClass("downimg");
-                       beforeMore.html("下拉刷新");*/
-                       if(this.y>20){
-                           /*beforeMore.addClass("down").html("释放立即刷新");
-                           beforeMoreimg.removeClass("downimg").addClass("imgup");
-                           afterMore.removeClass("up"); */
-                       }
-                      
-                   }else if (this.y < this.maxScrollY - 5){  //上拉加载
-                       if(that.pageCount>1 && that.pageCount != undefined){
-                          /* afterMore.html("上拉加载");
-                           afterMore.removeClass("up");
-                           afterMoreimg.removeClass("imgok imgup").addClass("upimg");
-                          */
-                           if(this.y < (this.maxScrollY - 50)){
-                              /* afterMoreimg.removeClass("upimg").addClass("downimg");
-                               beforeMore.removeClass("down");
-                               afterMore.addClass("up").html("释放立即加载"); */
-                           };
-                       }
-                       
-                   }
-                };
+              myScroll.on("scroll",function(){
+                console.log("move"+this.y);
+               
+            });
+          /*  myScroll.on("scrollEnd",function(){
+                console.log("end"+this.y);
+               }); */
 
-
-
-
-            myScroll.refresh();
-            myScroll.scrollTo(0,0,0);
-            
         };
         ScrollMore.prototype.creatTipEle=function (type,addData){
             if( !type ) return;
