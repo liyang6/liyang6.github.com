@@ -78,13 +78,17 @@
                 this.refresh &&  this.creatTipEle("refresh");
                 this.load &&  this.creatTipEle("load");
         };
-        ScrollMore.prototype.scrollEven=function (){
+        ScrollMore.prototype.scrollEven=function (){//模拟topOffset的方法
             var that=this;
-            var oRefresh=this.oRefresh,
+            var scrollId=document.querySelector(this.scrollId),
+                oRefresh=this.oRefresh,
                 oLoad=this.oLoad,
                 isRefresh=false,
-                isLoad=false,;
-            var myScroll;
+                isLoad=false,
+                nRefreshH;
+            nRefreshH= oRefresh.offsetHeight;
+            scrollId.style.transform="translate(0px, -80px)";
+            var myScroll=null;
             myScroll = new IScroll(this.scrollId, {
                     click:true,
                     tap: true ,
@@ -92,29 +96,35 @@
                     
             });
              myScroll.on("scrollCancel",function(){
-                 console.log("scrollCancel");
+                 //console.log("scrollCancel");
+                 scrollId.style.transition="none";
             });
               myScroll.on("beforeScrollStart",function(){
                // myScroll.refresh();
-               console.log("beforeScrollStart");
+               //console.log("beforeScrollStart");
             });
            
 
               myScroll.on("scroll",function(){
-                
-                if(this.y>5 ){
-                    
-                    if(this.y>20){
-                        console.log("30");
+                console.log(this.y);
+                if(this.y>50 ){
+                    oRefresh.innerHTML="下拉刷新";
+                    if(this.y>100){
+                        //console.log(this.y);
+                        oRefresh.innerHTML="释放刷新";
                     }
                 } 
                 if (this.y < this.maxScrollY - 5){
 
                 }
             });
-          /*  myScroll.on("scrollEnd",function(){
+            myScroll.on("scrollEnd",function(){
+                scrollId.style.transition="1s all ease";
+                scrollId.style.transform="translate(0px, -80px)";
                 console.log("end"+this.y);
-               }); */
+                //myScroll.scrollTo(0,nRefreshH,0);
+               // myScroll.scrollToElement(oRefresh, 100, 30, 20, "linear" )
+               }); 
 
         };
         ScrollMore.prototype.creatTipEle=function (type,addData){
