@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+#div1 div,#div2 div{ width:200px; height:200px; border:1px #000 solid; display:none;}
+.active{ background:red;}
+</style>
+</head>
+<body>
+	<div id="div1">
+		<input class="active" type="button" value="1">
+	    <input type="button" value="2">
+	    <input type="button" value="3">
+	    <div style="display:block">11111</div>
+	    <div>22222</div>
+	    <div>33333</div>
+	</div>
+	<div id="div2">
+		<input class="active" type="button" value="1">
+	    <input type="button" value="2">
+	    <input type="button" value="3">
+	    <div style="display:block">11111</div>
+	    <div>22222</div>
+	    <div>33333</div>
+	</div>
+</body>
+</html>
+<script>
+window.onload=function (){
+
+	function Tab(id,obj){
+		this.par=document.getElementById(id);
+		this.btn=this.par.getElementsByTagName("input");
+		this.cont=this.par.getElementsByTagName("div");
+		this.len=this.btn.length;
+	}
+	Tab.prototype.init=function (){
+		var This=this;
+		for(var i=0;i<this.len;i++){
+			(function (index){
+				This.btn[i].onclick=function (){
+					This.tabChange(index);
+				};
+			})(i);
+			
+		}
+	};
+	Tab.prototype.tabChange=function (n){
+		for(var i=0;i<this.len;i++){
+			this.btn[i].className="";
+			this.cont[i].style.display="none";
+		}
+		this.btn[n].className="active";
+		this.cont[n].style.display="block";
+	};
+	var oT=new Tab("div1",{});
+	oT.init();
+	var oT2=new Tab("div2",{});
+	oT2.init();
+};
+</script>

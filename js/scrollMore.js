@@ -72,6 +72,7 @@
                 this.pageCount=opt.pageCount;
                 this.oRefresh=null;
                 this.oLoad=null;
+                this.maxRefreshY=opt.maxRefreshY;
 
                 this.oContId=document.querySelector(this.addContId);
 
@@ -85,9 +86,9 @@
                 oLoad=this.oLoad,
                 isRefresh=false,
                 isLoad=false,
-                nRefreshH;
-            nRefreshH= oRefresh.offsetHeight;
-            scrollId.style.transform="translate(0px, -80px)";
+                nRefreshH,
+                maxRefreshY=(typeof this.maxRefreshY=="number") ? this.maxRefreshY : 150;
+                oRefresh.style.marginTop="-80px";
             var myScroll=null;
             myScroll = new IScroll(this.scrollId, {
                     click:true,
@@ -96,32 +97,43 @@
                     
             });
              myScroll.on("scrollCancel",function(){
-                 //console.log("scrollCancel");
-                 scrollId.style.transition="none";
+               //  console.log("scrollCancel");
             });
               myScroll.on("beforeScrollStart",function(){
-               // myScroll.refresh();
-               //console.log("beforeScrollStart");
+              // console.log("beforeScrollStart");
+                //oRefresh.style.marginTop="0";
             });
            
 
               myScroll.on("scroll",function(){
-                console.log(this.y);
+              //  console.log("scroll");
+              //  console.log(this.y);
+
+              if(this.y>80 ){
+                    //oRefresh.style.marginTop="0px";
+                   // myScroll.scrollTo(0,0,0);
+                }else{
+                  //  oRefresh.style.marginTop="-80px";
+                } 
+
                 if(this.y>50 ){
                     oRefresh.innerHTML="下拉刷新";
                     if(this.y>100){
                         //console.log(this.y);
                         oRefresh.innerHTML="释放刷新";
+                         if(maxRefreshY && (this.y > maxRefreshY)) myScroll.scrollTo(0,maxRefreshY,0);
                     }
                 } 
                 if (this.y < this.maxScrollY - 5){
 
                 }
-            });
+            });  
             myScroll.on("scrollEnd",function(){
-                scrollId.style.transition="1s all ease";
-                scrollId.style.transform="translate(0px, -80px)";
-                console.log("end"+this.y);
+               // alert(000);
+              //  console.log("scrollEnd");
+             //   scrollId.style.transition="0.5s all ease";
+            //    scrollId.style.transform="translate(0px,-80px)";
+             //   console.log("end"+this.y);
                 //myScroll.scrollTo(0,nRefreshH,0);
                // myScroll.scrollToElement(oRefresh, 100, 30, 20, "linear" )
                }); 
@@ -170,6 +182,7 @@
                             scrollId:"#box",
                             addContId:"#cont",
                             pageCount:"",
+                            
                             /*onlyScroll:true*/
                             refresh:function (){
                                 console.log(123);

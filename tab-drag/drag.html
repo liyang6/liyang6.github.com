@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{margin:0;padding:0;}
+
+	.drag{
+		position:absolute;
+		left:50px;
+		top: 50px;
+		width: 100px;
+		height: 100px;
+		border: 1px solid red;
+	}
+	h6{
+		height: 20px;
+		border-bottom: 1px solid red;
+	}
+	#linmitId{
+		width: 1000px;
+		height:1000px;
+		overflow: hidden;
+		border: 1px solid red;
+	}
+	</style>
+</head>
+<body >
+	<div  id="linmitId">
+		<div class="drag" id="box">
+			<h6>拖拽</h6>
+			<p>内容内容内<br />容内容内容内容内容内<br />容内容内容</p>
+		</div>
+	</div>
+</body>
+</html>
+<script src="com.js"></script>
+<script>
+window.onload=function (){
+	var oD=new Drag("box",{
+		linmitId:"linmitId"
+	});
+	oD.init();
+};
+</script>

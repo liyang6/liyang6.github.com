@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+#div1 div,#div2 div{ width:200px; height:200px; border:1px #000 solid; display:none;}
+.active{ background:red;}
+</style>
+</head>
+<body>
+	<div id="div1">
+		<input class="active" type="button" value="1">
+	    <input type="button" value="2">
+	    <input type="button" value="3">
+	    <div style="display:block">11111</div>
+	    <div>22222</div>
+	    <div>33333</div>
+	</div>
+	<div id="div2">
+		<input class="active" type="button" value="1">
+	    <input type="button" value="2">
+	    <input type="button" value="3">
+	    <div style="display:block">11111</div>
+	    <div>22222</div>
+	    <div>33333</div>
+	</div>
+</body>
+</html>
+<script src="com.js"></script>
+<script>
+window.onload=function (){
+	var oT=new Tab("div1");
+	oT.init();
+	oT.autuPlay();
+
+	var oT2=new Tab("div2");
+	oT2.init();
+	//oT2.autuPlay();
+};
+</script>
