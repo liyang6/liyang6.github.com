@@ -68,27 +68,29 @@
                 this.scrollId=opt.scrollId,
                 this.addContId=opt.addContId,
                 this.onlyScroll=opt.onlyScroll,
-                this.refresh=opt.refresh,
-                this.pageCount=opt.pageCount;
-                this.oRefresh=null;
-                this.oLoad=null;
+                this.fnRefresh=opt.fnRefresh,
+                this.fnLoad=opt.fnLoad,
+                this.pageCount=opt.pageCount,
+                this.oRefresh=null,
+                this.oLoad=null,
                 this.maxRefreshY=opt.maxRefreshY;
 
                 this.oContId=document.querySelector(this.addContId);
 
-                this.refresh &&  this.creatTipEle("refresh");
-                this.load &&  this.creatTipEle("load");
+                this.fnRefresh &&  this.creatTipEle("refresh");
+                this.fnLoad &&  this.creatTipEle("load");
         };
-        ScrollMore.prototype.scrollEven=function (){//模拟topOffset的方法
+        ScrollMore.prototype.scrollEven=function (){
             var that=this;
+            that.isRefresh=false;
+            that.isLoad=false;
             var scrollId=document.querySelector(this.scrollId),
                 oRefresh=this.oRefresh,
                 oLoad=this.oLoad,
-                isRefresh=false,
-                isLoad=false,
-                nRefreshH,
+                
                 maxRefreshY=(typeof this.maxRefreshY=="number") ? this.maxRefreshY : 150;
-                oRefresh.style.marginTop="-80px";
+                //nRefreshH=oRefresh.offsetHeight;
+
             var myScroll=null;
             myScroll = new IScroll(this.scrollId, {
                     click:true,
@@ -97,46 +99,53 @@
                     
             });
              myScroll.on("scrollCancel",function(){
-               //  console.log("scrollCancel");
             });
               myScroll.on("beforeScrollStart",function(){
-              // console.log("beforeScrollStart");
-                //oRefresh.style.marginTop="0";
+                oRefresh.innerHTML="下拉刷新";
+                oLoad.innerHTML="上垃圾在";
             });
            
 
               myScroll.on("scroll",function(){
-              //  console.log("scroll");
-              //  console.log(this.y);
-
-              if(this.y>80 ){
-                    //oRefresh.style.marginTop="0px";
-                   // myScroll.scrollTo(0,0,0);
-                }else{
-                  //  oRefresh.style.marginTop="-80px";
-                } 
-
-                if(this.y>50 ){
+                //刷新
+                that.isRefresh=false;
+                that.isLoad=false;
+                if(this.y>5 && this.y<100){
+                    oRefresh.style.display="block";
                     oRefresh.innerHTML="下拉刷新";
-                    if(this.y>100){
-                        //console.log(this.y);
-                        oRefresh.innerHTML="释放刷新";
-                         if(maxRefreshY && (this.y > maxRefreshY)) myScroll.scrollTo(0,maxRefreshY,0);
+                } else if(this.y>100){
+                    that.isRefresh=true;
+                    oRefresh.innerHTML="释放刷新";
+                    if(maxRefreshY && (this.y > maxRefreshY)) myScroll.scrollTo(0,maxRefreshY,0);
+                }
+                console.log(this.maxScrollY);
+                //加载
+                if ((this.y<0) && (this.y < this.maxScrollY - 5)){
+                        oLoad.innerHTML="上啦加载";
+                    if(this.y < this.maxScrollY - 100){
+                        that.isLoad=true;
+                        oLoad.innerHTML="释放加载";
                     }
-                } 
-                if (this.y < this.maxScrollY - 5){
-
                 }
             });  
+              
             myScroll.on("scrollEnd",function(){
-               // alert(000);
-              //  console.log("scrollEnd");
-             //   scrollId.style.transition="0.5s all ease";
-            //    scrollId.style.transform="translate(0px,-80px)";
-             //   console.log("end"+this.y);
-                //myScroll.scrollTo(0,nRefreshH,0);
-               // myScroll.scrollToElement(oRefresh, 100, 30, 20, "linear" )
-               }); 
+                var This=this;
+                if(that.isRefresh && this.y==0){
+                    oRefresh.innerHTML="加载中";
+                    that.fnRefresh &&  that.fnRefresh(oRefresh,myScroll)
+                }else{
+                    oRefresh.style.display="none";
+                }
+
+                if(that.isLoad && (this.y>=this.maxScrollY)){
+                    oLoad.innerHTML="加载中";
+                    that.fnLoad &&  that.fnLoad(oLoad,that.oContId,myScroll)
+                }else{
+                    
+                }
+                    
+            }); 
 
         };
         ScrollMore.prototype.creatTipEle=function (type,addData){
@@ -144,12 +153,12 @@
             var oEle=comonWork.createEle();
             var type=type.toLowerCase();
             ( typeof addData=="function" && addData) && addData(oEle);
-            if(type=="refresh"){
+            if(type=="refresh" && this.pageCount>0){
                 oEle.className="refreshTip";
                 oEle.innerHTML="下拉刷新";
                 this.oContId.insertBefore(oEle,this.oContId.childNodes[0]);
                  this.oRefresh=oEle;
-            }else if(type=="load"){
+            }else if(type=="load" && this.pageCount>1){
                 oEle.className="loadTip";
                 oEle.innerHTML="上拉加载";
                 this.oContId.appendChild(oEle);
@@ -181,11 +190,45 @@
                             url:"123",
                             scrollId:"#box",
                             addContId:"#cont",
-                            pageCount:"",
-                            
+                            pageCount:"2",
+                            maxRefreshY:0,
                             /*onlyScroll:true*/
-                            refresh:function (){
-                                console.log(123);
+                            fnRefresh:function (oRefresh){
+                                setTimeout(function (){//模拟请求延时2s(刷新)
+
+                                    oRefresh.innerHTML="刷新成功";
+                                    //只为提示信息显示，添加延时
+                                    var timer=null;
+                                    clearTimeout(timer);
+                                    timer=setTimeout(function (){
+                                        clearTimeout(timer);
+                                        oRefresh.style.display="none";
+                                        console.log("实现刷新");
+                                    }, 500);
+                                  
+                                }, 2000);//模拟请求延时2s(刷新)  
+                                
+                            },
+                             fnLoad:function (oLoad,content,myScroll){
+                                setTimeout(function (){//模拟请求延时2s(加载)
+
+                                   
+                                   oLoad.innerHTML="加载成功";
+                                    //只为提示信息显示，添加延时
+                                    var timer=null;
+                                    clearTimeout(timer);
+                                    timer=setTimeout(function (){
+                                        clearTimeout(timer);
+                                        var li=comonWork.createEle("","li");
+                                        li.innerHTML="456";
+                                        console.log(li);
+                                        content.insertBefore(li,oLoad);
+                                        console.log("实现加载");
+                                        myScroll.refresh();
+                                    }, 500);
+                                  
+                                }, 2000);//模拟请求延时2s(加载)  
+                                
                             }
                         });
        
