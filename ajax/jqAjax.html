@@ -10,37 +10,14 @@
 </html>
 
 <script src="jquery-1.7.2.min.js"></script>
+<script src="http://rap.taobao.org/rap.plugin.js?projectId=13888&mode=0"></script>
 <script>
 	$(function (){
-		
-		/*跨域会报错*/
-		/*$.ajax({
-			url:"http://wxtest.rongera.com/crmswx-web/mobile/html/firstLevelMenu/mobile/toolMain!selectCity.xhtml?",
-			dataType:"json",
-			success:function (data){
-				console.log(data);
-			},
-			error:function (data){
-				console.log(data);
-			}
-		});*/
-		
-		/*get*/
-		/*$.ajax({
-			"url":"2.txt",
-			dataType:"json",//dataType必须注意大小写
-			success:function (data){
-				console.log(data);
-			},
-			error:function (data){
-				console.log(data);
-			}
-		});*/
 		/*post*/
-		/*$.ajax({
-			url:"http://rap.taobao.org/mockjsdata/13888/pageData1",
+		$.ajax({
+			url:"http://rap.taobao.org/mockjs/13888/personalInfo?",
 			type:"post",
-			data:{"aaa":"bbb"},
+			data:{"userName":"1"},
 			dataType:"json",//必须注意大小写
 			success:function (data){
 				console.log(data);
@@ -48,22 +25,7 @@
 			error:function (data){
 				console.log(data);
 			}
-		});*/
-		
-		$.ajax({
-			url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a",
-			type:"post",
-			jsonp: 'cb',
-			dataType:"jsonp",//必须注意大小写
-			success:function (data){
-				console.log(data);
-				console.log(data.s);
-			},
-			error:function (data){
-				console.log(data);
-			}
 		});
-		 
-	});
+});
 
 </script>
