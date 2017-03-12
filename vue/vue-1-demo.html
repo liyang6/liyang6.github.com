@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue-demo</title>
+	<style type="text/css">
+		.red{
+			height: 20px;
+			width: 20px;
+			background: red;
+		}
+		.blue{
+			color:blue;
+		}
+	</style>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div class="el"  >
+		1234566
+	</div>
+	<!--  -->
+	
+</body>
+</html>
+
+<script>
+	var arr=[{v:1},{v:2},{v:3},{v:4},{v:5}];
+	alert(arr.indexOf(2))
+
+/*
+	var da={
+		add:true,
+		add2:true,
+		hhh:"<div>123</div>"
+	};
+
+	var vm=new Vue({
+		el:".el",
+		data:da,
+		render(createElement){
+			var obj=createElement(
+				"ul",
+				{
+					class:{
+						red:true,
+					},
+					style:{
+						fontSize:"50px"
+					},
+					attrs:{
+						ac:"aaa"
+					},
+					domProps:{
+						//innerHTML:"<li>dddddd</li>"
+					},
+					on:{
+						click:function (){
+							alert(2)
+						}
+					},
+					on:{
+						click:function (){
+							alert(3)
+						}
+					}
+				},
+				[
+					createElement("li","a"),
+					createElement("li","b"),
+					createElement("li","c"),
+				]
+
+			);
+			console.log(obj)
+			return obj;
+		}
+	});
+*/
+</script>

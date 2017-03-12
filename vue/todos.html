@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div class="page-top">
+        <div class="page-content">
+            <h2>任务计划列表</h2>
+        </div>
+    </div>
+    <div class="main">
+        <h3 class="big-title">添加任务：</h3>
+        <input 
+            placeholder="例如：吃饭睡觉打豆豆；    提示：+回车即可添加任务"
+            class="task-input" 
+            type="text"
+            v-model="cont"
+            @keyup.13="addCont"
+        />
+        <ul class="task-count" >
+            <li>1个任务未完成</li>
+            <li class="action">
+                <a class="active" href="#">所有任务</a>
+                <a href="#">未完成的任务</a>
+                <a href="#">完成的任务</a>
+            </li>
+        </ul>
+        <h3 class="big-title">任务列表：</h3>
+        <div class="tasks">
+
+            <span class="no-task-tip" v-show="!list.length">还没有添加任何任务</span>
+            <ul class="todo-list">
+                <li class="todo" :class="{completed:currVal.isChecked,editing:currVal===editCont}" v-for="currVal in list">
+                    <div class="view">
+                        <input v-model="currVal.isChecked" class="toggle" type="checkbox"  />
+                        <label @dblclick="editStatus(currVal)">{{currVal.tit}}</label>
+                        <button class="destroy" @click="removeCont(currVal)"></button>
+                    </div>
+                    <input 
+                        v-focus="currVal===editCont"
+                        v-model="currVal.tit"
+                        class="edit" 
+                        type="text" 
+                        @keyup.13="editSuccess"
+                        @blur="editSuccess"
+                        @keyup.esc="editFail(currVal)"
+                    />
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="./test2.js"></script>
+</body>
+</html>
