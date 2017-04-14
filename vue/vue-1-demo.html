@@ -16,65 +16,172 @@
 	<script src="vue.js"></script>
 </head>
 <body>
-	<div class="el"  >
-		1234566
+	<!-- <div class="el"  >
+		 <ol>
+		    现在我们为每个todo-item提供待办项对象
+		    待办项对象是变量，即其内容可以是动态的
+		    <mmm  v-bind:haha="groceryList[2]"></mmm>
+		  </ol>
 	</div>
-	<!--  -->
 	
+	<div class="ele"  >
+		 <ol>
+		    现在我们为每个todo-item提供待办项对象
+		    待办项对象是变量，即其内容可以是动态的
+		    <mmm v-for="o in groceryList"  v-bind:haha="o"></mmm>
+		  </ol>
+	</div> -->
+	<!-- <div class="el" id="id">
+	
+		<input v-model="a" v-once v-bind:disabled="b"></input>
+		<input v-model="a" ></input>
+		<input v-model="a" ></input>
+		<div v-bind:id="'list-' + a">{{fnqqq}}</div>
+		<div v-bind:id="'list-' + a">{{fnwww()}}</div>
+	</div> -->
+	<!-- <div id="demo">{{ fullName }}</div> -->
+	<div id="demo" v-bind:class="[a==0? 'b':'c','d']">
+		<my-component :class="'hah'"  :id="'iiii'" class="baz foo" 
+		
+		:style="{transform:r}"
+		></my-component>{{r}}
+	</div>
+
+
 </body>
 </html>
 
 <script>
-	var arr=[{v:1},{v:2},{v:3},{v:4},{v:5}];
-	alert(arr.indexOf(2))
+Vue.component('my-component', {
+  template: '<p class="foo bar">123</p>'
+})
+var nm=new Vue({
+	el:"#demo",
+	data: {
+		r:"translateX(60px)",
+	  a: 2,
+	  error: true
+	},
+	computed: {
+	  classObject: function () {
+	  	console.log(this.error);
+	    return {
+	      active: this.isActive,
+	      'text-danger': this.error,
+	    }
+	  }
+	}
+});
 
-/*
-	var da={
-		add:true,
-		add2:true,
-		hhh:"<div>123</div>"
+/*var vm = new Vue({
+  el: '#demo',
+  data: {
+    firstName: 'Foo',
+    lastName: 'Bar'
+  },
+  computed: {
+	  fullName: {
+	    // getter
+	    get: function () {
+	    	console.log(this.firstName + ' ' + this.lastName);
+	      return this.firstName + ' ' + this.lastName
+	    },
+	    // setter
+	    set: function (newValue) {
+	      var names = newValue.split(' ')
+	      this.firstName = names[0]
+	      this.lastName = names[names.length - 1]
+	    }
+	  }
+	}
+})*/
+	/*var vm = new Vue({
+		  el: '#demo',
+		  data: {
+		    firstName: 'Foo',
+		    lastName: 'Bar',
+		    fullName: 'Foo0 Bar'
+		  },
+		  watch: {
+		    firstName: function (val) {
+		    	console.log("first"+val);
+		      this.fullName = val + ' 1' + this.lastName
+		    },
+		    lastName: function (val) {
+		    	console.log("last"+val);
+		      this.fullName = this.firstName + ' 2' + val
+		    }
+		  }
+		})*/
+	/*Vue.component('mmm', {
+		  props: ['haha'],
+		  template: '<li>{{ haha.text }}</li>'
+		})
+		var app7 = new Vue({
+		  el: '.el',
+		  data: {
+		    groceryList: [
+		      { text: '蔬菜1' },
+		      { text: '奶酪' },
+		      { text: '随便其他什么人吃的东西' }
+		    ]
+		  }
+		});
+		var app7e = new Vue({
+		  el: '.ele',
+		  data: {
+		    groceryList: [
+		      { text: '蔬菜2' },
+		      { text: '奶酪2' },
+		      { text: '随便其他什么人吃的东西2' }
+		    ]
+		  }
+		})
+*/
+
+	/*var arr=[{v:1},{v:2},{v:3},{v:4},{v:5}];
+	alert(arr.indexOf(2))*/
+
+
+	/*var da={
+		a:"字母a",
+		b:false
 	};
 
 	var vm=new Vue({
 		el:".el",
 		data:da,
-		render(createElement){
-			var obj=createElement(
-				"ul",
-				{
-					class:{
-						red:true,
-					},
-					style:{
-						fontSize:"50px"
-					},
-					attrs:{
-						ac:"aaa"
-					},
-					domProps:{
-						//innerHTML:"<li>dddddd</li>"
-					},
-					on:{
-						click:function (){
-							alert(2)
-						}
-					},
-					on:{
-						click:function (){
-							alert(3)
-						}
-					}
-				},
-				[
-					createElement("li","a"),
-					createElement("li","b"),
-					createElement("li","c"),
-				]
-
-			);
-			console.log(obj)
-			return obj;
+		methods:{
+			fnwww:function (){
+				
+				return this.a.split('').reverse().join('');
+			}
+		},
+		computed:{
+			fnqqq:function (){
+				
+				return this.a.split('').reverse().join('');
+			}
 		}
-	});
-*/
+		/*created: function () {
+		    // `this` 指向 vm 实例
+		    alert('a is: ' + this.a)
+		 }
+	});*/
+
+	/*alert('a is: ')*/
+/*console.log(vm.$data === da);
+ // -> true
+ console.log(vm.$el === document.getElementById('id'));*/
+ // -> true
+// $watch 是一个实例方法
+/*vm.$watch('a', function (newVal, oldVal) {
+  // 这个回调将在 `vm.a`  改变后调用
+  console.log(this);
+  console.log(this.b);
+  console.log(oldVal);
+  console.log(newVal);
+});*/
+
+
 </script>

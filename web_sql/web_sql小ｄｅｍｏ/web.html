@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="web.js"></script>
+	<script>
+	window.onload=function (){
+		var oWeb=new Webdb({
+				name:"mydb3",//数据库名称
+				version:"1.2",//版本号
+				describe:"mydb test",
+				size:2//数据库大小
+			});
+		/*oWeb.operate({
+			tableName:"myCenter",
+			type:"del"
+		});*/
+		/*oWeb.operate({
+			tableName:"myCenter",
+			type:"create",
+			aKey:["sKey","sVal","kk"],
+		});*/
+		/*oWeb.operate({
+			tableName:"myCenter",
+			type:"insert",
+			data:{
+				"sKey":"130",
+				"sVal":"p",
+				"kk":"qqqq"
+			}
+		});
+		oWeb.operate({
+			tableName:"myCenter",
+			type:"insert",
+			data:{
+				"sKey":"131",
+				"sVal":"pp",
+				"kk":"qqqq"
+			}
+		});
+		oWeb.operate({
+			tableName:"myCenter",
+			type:"insert",
+			data:{
+				"sKey":"131",
+				"sVal":"pp",
+				"kk":"qqqq"
+			}
+		});*/
+		/*oWeb.operate({
+			tableName:"myCenter",
+			type:"add",
+			data:{
+				"sKey":"136",
+				"qq":"132",
+				"sVal":"ww"
+			}
+		});*/
+		
+		/*oWeb.operate({
+			tableName:"myCenter",
+			type:"add",
+			where:{
+				"sKey":"1550"
+			},
+			addData:{
+				"sVal":"sssss"//
+			},
+			success:function(rs){
+				console.log(rs);
+			}
+		});*//*
+		oWeb.operate({
+			tableName:"myCenter",
+			type:"insert",
+			data:{
+				"sKey":"134",
+				"sVal":"ww"
+			}
+		});
+		oWeb.operate({
+			tableName:"myCenter",
+			type:"insert",
+			data:{
+				"sKey":"135",
+				"sVal":"ww",
+				"kk":"ww"
+			}
+		});*/
+		oWeb.operate({
+			tableName:"myCenter",
+			type:"update",
+			where:{
+				"sKey":"132"
+			},
+			setData:{
+				"sVal":"1"//暂时只能修改一条
+			},
+			success:function (rs){
+				console.log(rs.rows.length);
+				console.log(rs.rows);
+			}
+		});
+		
+		/*oWeb.operate({
+			tableName:"myCenter",
+			type:"select",
+			where:{
+				"sKey":"132"
+			},
+			success:function (rs){
+				console.log(rs.rows.item(0));//获取数据
+				//console.log(rs.rows.item(1));//获取数据
+				console.log(rs.rows.length);//获取数据个数
+			}
+		});*/
+		
+		//删除myCenter表下面的sKey为124的数据
+		/*oWeb.operate({
+			tableName:"myCenter",
+			type:"delete",
+			where:{
+				"sKey":"134",
+				"sVal":"ww"
+			},
+			success:function (){
+				
+			}
+		});*/
+		
+		//删除myCenter整个表
+		/*oWeb.operate({
+			tableName:"myCenter",
+			type:"drop"
+		});*/
+		//清空myCenter整个表
+		/*oWeb.operate({
+			tableName:"myCenter",
+			type:"del"
+		});*/
+
+	};	
+	</script>
+</head>
+<body>
+	<div id="d"></div>
+</body>
+</html>

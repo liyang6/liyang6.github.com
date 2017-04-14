@@ -1,0 +1,2 @@
+1、IE10都不兼容-------不推荐使用
+2、资料查询：http://www.runoob.com/html/html5-web-sql.html

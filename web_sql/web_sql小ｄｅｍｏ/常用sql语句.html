@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+	window.onload=function (){
+		var d=document.getElementById("d");
+		var db = openDatabase('testDB3', '1.0', 'Test DB4', 2 * 1024 * 1024);
+
+
+		db.transaction(function (context) {
+			  //context.executeSql('drop table testTable ',[],a,b);
+	          /*context.executeSql('CREATE TABLE IF NOT EXISTS testTable (id unique, name, val)');*/
+	           /*context.executeSql('INSERT INTO testTable (id, name, val) VALUES (1, "Casper", "4")');
+	           context.executeSql('INSERT INTO testTable (id, name, val) VALUES (2, "Frank", "5")');
+	           context.executeSql('INSERT INTO testTable (id, name, val) VALUES (3, "12121", "6")');*/
+	            context.executeSql('alter table testTable add column qq');
+	           context.executeSql('INSERT INTO testTable (id, name, val,qq) VALUES (6, "12121", "6","6")');
+	           console.log(4);
+	           /*context.executeSql('UPDATE testTable SET id=123 and name=111 WHERE id=? and name=222',[222]);*/
+	           /*context.executeSql("select * from testTable where id = ?",[99],function(context,rs){
+	           		console.log(rs.rows.length);
+	           		console.log(rs);
+	           		console.log(rs.rows[0].name)
+	           })*/
+				//context.executeSql('DELETE FROM LOGS ',[],a,b);
+				/*context.executeSql('DELETE FROM testTable where id=? and name=?',[1,'Frank'],a,b);*/
+	 	});
+
+	 	function a(){
+	 		console.log(11)
+	 	}
+	 	function b(){
+	 		console.log(223)
+	 	}
+	};	
+	</script>
+</head>
+<body>
+	<div id="d"></div>
+</body>
+</html>

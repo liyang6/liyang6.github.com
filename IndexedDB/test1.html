@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<script type="text/javascript">
+/*
+ 学习地址：  0、http://www.111cn.net/wy/html5/104474.htm
+ 		1、https://segmentfault.com/a/1190000006924681
+ 		2、http://blog.csdn.net/u013291076/article/details/45336581
+ 		3、https://developer.mozilla.org/zh-CN/docs/Web/API/IndexedDB_API
+ 		http://www.tfan.org/using-indexeddb/
+ * 疑问一：event.target.result;  有时会等于   request.result
+ * 
+ * 
+ * 
+ * 
+ * */
+	
+	
+	
+	
+window.onload = function () {
+	window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+	var data={"id":"ip1","name":"pl","age":11};
+	var data2={"id":"2","name":"pl2","age":12};
+	var database;
+	
+	//window.indexedDB.deleteDatabase("MyTestDatabase");//删除整个数据库
+	var request = window.indexedDB.open("my", 2);
+	request.onsuccess = function(event) {
+	    alert("创建/打开数据库成功。");
+	 
+	    //让数据库 可在任何地方访问
+	    database = request.result;  
+	    //后续操作，比如显示数据库中保存的所有链接
+	    //showLinks();
+	    var transaction = database.transaction(["mytable"], "readwrite");
+		var objectStore = transaction.objectStore("mytable");
+		var index = objectStore.index(id);
+		var n = index.get("2");
+		console.log(n)
+				    
+		//添加数据（更新数据，没有就添加，有就更新）
+		var addData1 = objectStore.put(data);
+		addData1.onerror = function(event) {
+		    alert("addData1发生错误：" + request.error);
+		};
+		addData1.onsuccess = function(event) {
+		    alert("addData1数据保存成功");
+		};
+		var addData2 = objectStore.put(data2);
+		addData2.onerror = function(event) {
+		    alert("addData2发生错误：" + request.error);
+		};
+		addData2.onsuccess = function(event) {
+		    alert("addData2数据保存成功");
+		};
+		
+		//循环获取所有数据
+		/*var message = "";
+		var getAll = objectStore.openCursor();
+		getAll.onerror = function (event) {
+		    alert("发生错误：" + request.error);
+		};
+		getAll.onsuccess = function (event) {   
+		    //创建一个游标
+		    var res = event.target.result;
+		    //根据游标判断是否有数据
+		    if (res) {
+		        var str = res.value;
+		        alert(JSON.stringify(res.value));
+		        //调用cursor.continue()方法访问下一条数据
+		        //当游标到达下一条数据时，onsuccess事件会再一次触发
+		        res.continue();
+		    }
+		    else {
+		        //如果一个结果也没有，说明游标到底了，输出信息
+		        alert("到底了");
+		    }
+		}*/
+		
+		//查询单条数据
+		var getMsg = objectStore.get("2");
+		getMsg.onsuccess = function(event) {
+		    var str = event.target.result;
+		    console.log(JSON.stringify(str));
+		     alert(JSON.stringify(str));
+		};
+		getMsg.onerror = function(event) {
+		   alert("发生错误：" + event);
+		}
+		
+		//删除一条
+		var delMsg = objectStore.delete("2");
+		delMsg.onerror = function (event) {
+		    alert("发生错误：" + request.error);
+		};
+		delMsg.onsuccess = function (event) {
+		    alert("删除成功。");
+		}
+		
+	};
+	request.onerror = function (event) {
+	    alert("发生错误：" + request.error);
+	    console.log(request.error)
+	};
+	
+	request.onupgradeneeded = function(event) {
+	    alert("第一次创建数据库或者更新数据库。");
+	    //alert("数据库老版本为：" + event.oldVersion + " 更新后新版本为：" + event.newVersion)
+	     
+	    var db = event.target.result;   
+	    if(!db.objectStoreNames.contains("mytable")) {
+	    	var objectStore = db.createObjectStore("mytable", { keyPath: "id" });  
+	    }
+	};
+};
+</script>

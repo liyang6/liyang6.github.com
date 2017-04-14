@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+	function convertImgToBase64(url, callback, outputFormat){
+	  var canvas = document.createElement('CANVAS'),
+	    ctx = canvas.getContext('2d'),
+	    img = new Image;
+		  img.crossOrigin = 'Anonymous';
+		  img.onload = function(){
+			    canvas.height = img.height;
+			    canvas.width = img.width;
+			    ctx.drawImage(img,0,0);
+			    var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+			    callback.call(this, dataURL);
+			    canvas = null; 
+		  };
+		  img.src = url;
+	}
+ 
+	convertImgToBase64('https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=819201812,3553302270&fm=23&gp=0.jpg', function(base64Img){
+	  console.log(base64Img);
+	});
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
