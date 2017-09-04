@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/m_config.js"></script>
+</head>
+<body>
+	<div class="disk" id="disk">
+		<canvas id="can" width="300" height="300"></canvas>
+		<span id="paly_btn"></span>
+	</div>
+</body>
+</html>
+<script>
+com.ready(function (){
+
+
+	  var can=document.getElementById("can"),
+	  	palyBtn=document.getElementById("paly_btn"),
+		oCanW=com.getCss(can,'width'),
+		oCanH=com.getCss(can,'height'),
+		obj={
+			r:oCanW/2,
+			w:oCanW,
+			h:oCanH,
+			x:oCanW/2,
+			y:oCanH/2,
+			deg:30,
+			len:360/30,
+			arr:['奖励一个','奖励二个','奖励三个','奖励四个','奖励五个','奖励六个','奖励七个','奖励八个','奖励九个','奖励十个','奖励十一个','惩罚十二个哈'],
+			xc:L=oCanW*Math.sin(jToh(30/2))
+		},
+		ctx=can.getContext('2d');
+
+		ctx.translate(obj.x,obj.y);
+		ctx.rotate(-15*Math.PI/180);
+		ctx.translate(-obj.x, -obj.y);
+
+		ctx.beginPath();
+		ctx.arc(obj.x,obj.y,obj.r,0,2*Math.PI);
+		ctx.stroke();
+		
+		ctx.lineWidth = 4;  
+		ctx.font="16px Arial";
+		/*画线*/
+		drawLine(obj.deg);
+		/*写字*/
+		writeArr(obj.arr);
+
+		var isTrun=true,
+			startDeg=0,
+			startTime=0,
+			endTimeout=0;
+		palyBtn.addEventListener("touchstart",function (){
+			if(isTrun){
+				startTime=new Date().getTime();
+			}
+		});	
+		palyBtn.addEventListener("touchend",function (){
+			if(isTrun){
+			isTrun=false;
+				endTimeout=new Date().getTime();
+				turn(can,{
+					dis:endTimeout-startTime,
+					complete:function (){
+						isTrun=true;
+					}
+				});
+			}
+		});	
+
+		function turn(obj,data){
+			var complete=data.complete || function (){},
+				dis=data.dis || 100,
+				n=dis/10;
+				( n > 20 ) && (n=20);
+				startDeg%=360;
+			obj.timer=null;
+			clearInterval(obj.timer);
+			obj.timer=setInterval(function (){
+				if(n>=0){
+					startDeg+=n;
+					obj.style.transform='rotate('+startDeg+'deg)';
+					(startDeg >=360) && ( n-=0.2 );
+					console.log(startDeg);
+					console.log(n);
+
+				}else{
+					complete && complete();
+				}
+			},30);
+		}	
+		function writeArr(arr){
+			for(var j=0;j<arr.length;j++){
+				ctx.save();
+				ctx.translate(obj.x,obj.y);
+				ctx.rotate(jToh(15+obj.deg*j));
+				ctx.translate(-obj.x, -obj.y);
+				writeCon(obj.arr[j]);
+				ctx.restore();
+			}
+		}
+
+		function writeCon(str){
+			var startW=0,
+				fontW=32,
+				top=24,//绘制字体距离canvas顶部初始的高度
+				inx= 0; //每次开始截取的字符串的索引
+			for(var i=0;i<str.length;i++){ 
+			    startW+=ctx.measureText(str[i]).width; 
+			    if(startW>=fontW){  
+			        ctx.fillText(str.substring(inx,i+1),obj.x-fontW/2,top);//绘制截取部分
+			        top+=20;//20为字体的高度
+			        startW=0;
+			        inx=i+1;
+			    } 
+			    (i == str.length-1) && ctx.fillText(str.substring(inx,i+1),obj.x-fontW/2,top);
+			}
+		}
+
+
+	function drawLine(deg){
+		var fn=function(deg){
+			ctx.save();
+			ctx.beginPath(); 
+			ctx.moveTo(obj.x,obj.y);  
+			ctx.lineTo(obj.x*(1+Math.sin(deg)),obj.y*(1-Math.cos(deg)));  
+			ctx.stroke();
+			ctx.restore();
+		};
+
+		for(var i=0;i<obj.len;i++){
+			var degLine=jToh(deg*i);
+			fn(degLine);
+		}
+	}
+	function jToh(j){
+		return Math.PI/180*j;
+	}
+	function writeCont(){
+		
+	}
+
+
+
+});
+
+
+
+</script>

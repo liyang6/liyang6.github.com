@@ -1,0 +1,48 @@
+@charset "utf-8";
+/*清楚默认样式*/
+body{ font-size:12px; -webkit-tap-highlight-color:transparent;/*移动端点击高亮*/}
+*{ padding:0; margin:0; }
+h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal; line-height:1em;}
+a{ text-decoration:none; color:#000; }
+ul,ol{ list-style:none;}
+i,em{ font-style:normal;}
+b,strong{ font-weight:normal;}
+a img{ border:none;}
+img{ vertical-align:top;}
+input { margin:0; padding:0; border: none 0; outline:none; }
+input::-ms-clear { display:none; }
+.clearfix:after{ display:block; content:""; clear:both;}
+.clearfix{zoom:1}
+table{ border-collapse:collapse;}
+td,th{ border:none;}
+canvas{
+    display: block;
+}
+/*滚动回弹*/
+.scroll_touch{
+	overflow-y : auto; 
+	overflow-x : hidden;  
+	-webkit-transform: translateZ(0px);
+	-webkit-overflow-scrolling : touch;
+	-moz-overflow-scrolling : touch;  
+	-ms-overflow-scrolling : touch;  
+	-o-overflow-scrolling : touch;    
+}
+/* 三角 */
+.triangle{
+	 width:0;
+     height:0;      
+     border:7px transparent solid;
+     border-top:7px #333 solid;     
+}
+a{
+    // 取消a标签手指按下时出现的黑色遮罩层
+    -webkit-tap-highlight-color:transparent;
+    text-decoration: none;
+    color: #818788;
+}
+input {
+    // 解决IOS下表单元素圆角的问题
+    -webkit-appearance:none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}

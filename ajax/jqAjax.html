@@ -10,17 +10,32 @@
 </html>
 
 <script src="jquery-1.7.2.min.js"></script>
-<script src="http://rap.taobao.org/rap.plugin.js?projectId=13888&mode=0"></script>
+<!--<script src="http://rap.taobao.org/rap.plugin.js?projectId=13888&mode=0"></script>-->
 <script>
 	$(function (){
 		/*post*/
-		$.ajax({
+		/*$.ajax({
 			url:"http://rap.taobao.org/mockjs/13888/personalInfo?",
 			type:"post",
 			data:{"userName":"1"},
 			dataType:"json",//必须注意大小写
 			success:function (data){
 				console.log(data);
+			},
+			error:function (data){
+				console.log(data);
+			}
+		});*/
+		$.ajax({
+			url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+			type:"",
+			dataType: 'jsonp',
+			jsonp: 'cb',
+			jsonpCallback:"abc",
+			data:{"wd":"1"},
+			success:function (data){
+				console.log(data);
+				console.log(typeof data);
 			},
 			error:function (data){
 				console.log(data);
