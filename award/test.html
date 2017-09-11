@@ -14,6 +14,14 @@
 		<canvas id="can" width="300" height="300"></canvas>
 		<span id="paly_btn"></span>
 	</div>
+	<div class="resultPage">
+		<div>
+			<p class="result"></p>
+			<label for=""></label>
+			<input type="text" class="password">
+			<input type="button" class="checkBtn">
+		</div>
+	</div>
 </body>
 </html>
 <script>
@@ -24,6 +32,7 @@ com.ready(function (){
 	  	palyBtn=document.getElementById("paly_btn"),
 		oCanW=com.getCss(can,'width'),
 		oCanH=com.getCss(can,'height'),
+
 		obj={
 			r:oCanW/2,
 			w:oCanW,
@@ -36,21 +45,24 @@ com.ready(function (){
 			xc:L=oCanW*Math.sin(jToh(30/2))
 		},
 		ctx=can.getContext('2d');
-
-		ctx.translate(obj.x,obj.y);
-		ctx.rotate(-15*Math.PI/180);
-		ctx.translate(-obj.x, -obj.y);
-
-		ctx.beginPath();
-		ctx.arc(obj.x,obj.y,obj.r,0,2*Math.PI);
-		ctx.stroke();
-		
 		ctx.lineWidth = 4;  
 		ctx.font="16px Arial";
-		/*画线*/
-		drawLine(obj.deg);
-		/*写字*/
-		writeArr(obj.arr);
+		discAward(0);
+		function discAward(n){
+			ctx.clearRect(0,0,obj.w,obj.h);
+			ctx.translate(obj.x,obj.y);
+			ctx.rotate(jToh(n-15));
+			ctx.translate(-obj.x, -obj.y);
+			ctx.beginPath();
+			ctx.arc(obj.x,obj.y,obj.r,0,2*Math.PI);
+			ctx.stroke();
+		
+			/*画线*/
+			drawLine(obj.deg);
+			/*写字*/
+			writeArr(obj.arr);
+		}
+		
 
 		var isTrun=true,
 			startDeg=0,
@@ -85,7 +97,8 @@ com.ready(function (){
 			obj.timer=setInterval(function (){
 				if(n>=0){
 					startDeg+=n;
-					obj.style.transform='rotate('+startDeg+'deg)';
+					discAward(startDeg);
+					//obj.style.transform='rotate('+startDeg+'deg)';
 					(startDeg >=360) && ( n-=0.2 );
 					console.log(startDeg);
 					console.log(n);

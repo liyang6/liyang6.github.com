@@ -66,6 +66,21 @@
         var sRus = this.getStyle(obj, name);
         return /px/g.test(sRus) ? sRus.replace("px","") : sRus ;
     };
+    F.prototype.fnEvent = function(time,callback) {
+        this.sAfterTime=null;
+        if ( this.sBeforeTime==null ) {
+            this.sBeforeTime = new Date().getTime();
+        } else {
+            sAfterTime = new Date().getTime();
+            if (sAfterTime - this.sBeforeTime < this.timeout) {
+                this.sBeforeTime = this.sAfterTime;
+                return;
+            } else {
+                this.sBeforeTime = this.sAfterTime;
+            }
+        }
+        this.callback && this.callback();
+    }
     
     com = new F();
 })(document, window);

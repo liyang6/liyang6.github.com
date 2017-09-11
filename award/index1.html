@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<title>抽奖</title>
+	<link href="../images/ico.jpg" rel="Shortcut Icon" type="image/x-icon">
+	<link href="../images/ico.jpg" rel="apple-touch-icon-precomposed">
+
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/m_config.js"></script>
+</head>
+<body>
+	<p class="welcome">欢迎来到抽奖环节，点击按钮进行抽奖，生死无悔！！！</p>
+	<div class="disk" id="disk">
+		<canvas id="can" width="300" height="300"></canvas>
+		<span id="paly_btn"></span>
+	</div>
+	<div class="resultPage" id="resultPage">
+		<div>
+			<p class="resultCont" id="resultCont"></p>
+			<label for="">想要再来一次吗</label>
+			<input type="text" placeholder="请输入密码" class="password" id="password">
+			<p class="err" id="err">密码错误</p>
+			<input type="button" class="checkBtn" id="checkBtn" value="确认">
+		</div>
+	</div>
+	
+	<script src="js/play.js"></script>
+</body>
+</html>
