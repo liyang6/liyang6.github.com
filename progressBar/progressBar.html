@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{margin:0;padding:0;color:#000;}
+		.wrap{
+			position: relative;
+			margin:30px auto;
+			width: 450px;
+		}
+		.line_bg{
+			display: block;
+			width: 100%;
+			height:6px;
+			background: #ccc;
+			border-radius:6px; 
+		}
+		.line{
+			position: absolute;
+			left:0;
+			top:0;
+			width: 50%;
+			height:6px;
+			background: red;
+			border-radius:6px; 
+			text-align: right;
+		}
+		.btn{
+			position: absolute;
+			right:-15px;
+			top:-7px;
+			width: 30px;	
+			height: 20px;
+			background: #f0f;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<span class="line_bg"></span>
+		<span class="line" id="line">
+			<span class="btn" id="btn"></span>
+		</span>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	/*ProgressBar(){
+
+	}*/
+	/*new ProgressBar({
+		lineId:"#line",
+		btnId:"#btn",
+		startNum:30,
+		endNum:2000
+	});*/
+
+	var line=$("#line");
+	var btn=$("#btn");
+	var startNum=30,
+		endNum=2000;
+	//var space=10;
+
+	var fnDown=function (e){
+			e.stopPropagation();
+			var This=this;
+			
+			var downX=e.pageX,
+				curentW=$(This).parent().outerWidth(),
+				selfHalfW=$(This).outerWidth()/2;
+			var maxW=$(This).parent().parent().outerWidth()-selfHalfW,
+				minW=selfHalfW;
+				
+			var calcNum=function (changeW){
+					var rate=((changeW-selfHalfW)/(maxW-minW)).toFixed(10);
+					var num=Math.round(startNum+rate*(endNum-startNum));
+					var calcNumber=0;
+					return Math.round(num/10)*10;
+
+					/*if( (num%space)>(space/2) ){
+						calcNumber=parseInt(num/space)*space;
+					}else if((num%space)<(space/2)){
+						calcNumber=(parseInt(num/space)+1)*space;
+					}else{
+						calcNumber=num;
+					}
+					console.log(calcNumber);
+					return  calcNumber;*/
+			};
+			var fnMove=function (e){
+					var moveX=e.pageX;
+					var changeW=moveX-downX+curentW;
+					(changeW>=maxW) && (changeW=maxW);
+					(changeW<=minW) && (changeW=minW);
+					$(This).parent().width(changeW+"px");
+					var num=calcNum(changeW);
+					$(This).html(num);
+
+					return false;		
+			};
+			var fnUp=function (){
+					$(document).off("mousemove",fnMove);
+					$(document).off("mouseup",fnUp);
+			};
+			$(document).off("mousemove",fnMove).on("mousemove",fnMove);
+			$(document).off("mouseup",fnUp).on("mouseup",fnUp);
+	};
+	btn.off("mousedown",fnDown).on("mousedown",fnDown);
+});	
+</script>
