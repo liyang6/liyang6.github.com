@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	<style type="text/css">
+		*{margin:0;padding: 0}
+		div{
+			width: 300px;
+			height: 200px;
+			border: 1px solid #000;
+			margin:30px auto;
+			overflow: hidden;
+		}
+		li{
+			width: 100%;
+			height: 30px;
+			line-height: 30px;
+			margin-bottom: 10px;
+			font-size: 20px;
+			color: #FFF;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="tabWrap">
+		<ul id="list">
+			<li>内容1</li>
+			<li>内容2</li>
+			<li>内容3</li>
+			<li>内容4</li>
+			<li>内容5</li>
+			<li>内容6</li>
+		</ul>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function (){
+
+	function Tab(o){
+		this.init(o);
+	}
+	Tab.prototype.init=function (o){
+		this.wrap=$("#"+o.id);
+		this.child=this.wrap.children();
+		if( o.list ){
+			this.list=$("#"+o.list);
+		}else{
+			for(var i=0;i<this.child.length;i++){
+				if(/ul/img.test(this.child[i].tagName)){
+					this.list=this.child.eq(i);
+					break;
+				}
+			}
+		}
+		var alistLi=this.list.children();
+		this.nLiH=alistLi.eq(0).outerHeight(true);
+		this.nLen=alistLi.length;
+		this.list.append(alistLi.clone());
+		this.timer=null,
+		this.spaceT=o.spaceT || 2000;
+		this.moveT=o.moveT || 300;
+		/*this.mode=o.mode.replace(/\-\w/mg,function(s){return s.substring(1).toUpperCase();
+		});*/
+	};	
+	Tab.prototype.autoPlay=function (o){
+		var n=0,
+			olist=this.list,
+			nLiH=this.nLiH,
+			nLen=this.nLen,
+			timer=this.timer,
+			spaceT=this.spaceT,
+			moveT=this.moveT;
+		clearInterval(timer);
+		timer=setInterval(function (){
+				n-=nLiH;
+			if(Math.abs(n)>=(nLiH*(nLen+1))){
+				n=0;
+				olist.css("marginTop",n+"px");
+				n-=nLiH;
+			}
+			olist.stop().animate({"marginTop":n+"px"},moveT);
+		},spaceT);
+
+	};				
+	var tab=new Tab({
+		id:"tabWrap",
+		spaceT:2000,
+		moveT:200
+	});
+	tab.autoPlay();
+	
+	
+});	
+</script>
